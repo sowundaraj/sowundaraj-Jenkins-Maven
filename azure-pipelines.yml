@@ -55,7 +55,6 @@ steps:
     Dockerfile: 'Dockerfile'
     tags: |
       $(Build.BuildId)
-      latest
   displayName: 'Building Image'
 
 
