@@ -1,8 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - main
 
@@ -13,6 +8,12 @@ variables:
   imageName: 'pipelines-javascript-docker'
 
 steps:
+- task: HelmInstaller@0
+  inputs:
+    helmVersion: '3.0.0'
+    installKubectl: true
+  displayName: Installing helm
+
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -54,3 +55,8 @@ steps:
     repository: $(imageName)
     Dockerfile: Dockerfile
   displayName: 'Building Image'
+
+
+- script: |
+    sudo docker images
+  displayName: 'Display Docker Images'
