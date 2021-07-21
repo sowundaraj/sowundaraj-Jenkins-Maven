@@ -5,7 +5,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  imageName: 'pipelines-javascript-docker'
+  imageName: ' myazuredevopsprac.azurecr.io/myjava'
 
 steps:
 - task: HelmInstaller@0
@@ -60,3 +60,4 @@ steps:
 - script: |
     sudo docker images
   displayName: 'Display Docker Images'
+
