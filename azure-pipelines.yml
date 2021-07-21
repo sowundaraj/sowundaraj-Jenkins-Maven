@@ -4,9 +4,6 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-variables:
-  imageName: ' myazuredevopsprac.azurecr.io/myjava'
-
 steps:
 - task: HelmInstaller@0
   inputs:
@@ -49,11 +46,16 @@ steps:
     ls
   displayName: 'Just Viewing directory structure'
   
+
 - task: Docker@2
   inputs:
-    command: build
-    repository: $(imageName)
-    Dockerfile: Dockerfile
+    containerRegistry: 'My ACR Connection'
+    repository: 'myrepo'
+    command: 'buildAndPush'
+    Dockerfile: 'Dockerfile'
+    tags: |
+      $(Build.BuildId)
+      latest
   displayName: 'Building Image'
 
 
