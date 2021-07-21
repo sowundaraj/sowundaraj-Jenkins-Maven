@@ -9,6 +9,9 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  imageName: 'pipelines-javascript-docker'
+
 steps:
 - task: Maven@3
   inputs:
@@ -23,7 +26,6 @@ steps:
   displayName: 'Commpling  Package'
 
 - task: Maven@3
-
   inputs:
     mavenPomFile: 'pom.xml'
     goals: 'install'
@@ -42,5 +44,13 @@ steps:
   displayName: 'Viewing Directory Structure'
   
 - script: |
+    cd target
     ls
   displayName: 'Just Viewing directory structure'
+  
+- task: Docker@2
+  inputs:
+    command: build
+    repository: $(imageName)
+    Dockerfile: Dockerfile
+  displayName: 'Building Image'
