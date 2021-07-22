@@ -63,8 +63,16 @@ steps:
   displayName: 'Display Docker Images'
   
 
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'target'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    CleanTargetFolder: true
+    OverWrite: true
+
 - task: PublishBuildArtifacts@1
   inputs:
-   PathtoPublish: '$(System.DefaultWorkingDirectory)'
-
+   PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+   ArtifactName: myjar
 
