@@ -61,4 +61,10 @@ steps:
 - script: |
     sudo docker images
   displayName: 'Display Docker Images'
+  
+
+- task: PublishBuildArtifacts@1
+  inputs:
+   PathtoPublish: '$(System.DefaultWorkingDirectory)'
+
 
